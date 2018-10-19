@@ -1,5 +1,6 @@
 package com.sports.api.CricketApp.service;
 
 public interface AllMatchesService {
-    public String getAllCurrentMatches();
+    String getAllCurrentMatches();
+    String getSelectedMatchScore(String matchId);
 }

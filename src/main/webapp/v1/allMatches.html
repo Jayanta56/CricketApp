@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of All Ongoing Matches</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+This is a sample line.
+<script  type="text/javascript" >
+        $(document).ready(function() {
+            $.getJSON("response.json", function(data){
+                var matches_data = '';
+                $.each(data, function(key, value) {
+                    matches_data += '<tr>';
+                    matches_data += '<td>' + value.name + '</td>';
+                    matches_data += '<td>' + value.name + '</td>';
+                    matches_data += '<td>' + value.name + '</td>';
+                    matches_data += '<td>' + value.name + '</td>';
+                    matches_data += '<td>' + value.name + '</td>';
+                    matches_data += '</tr>';
+                });
+                $('#matches_table').append(matches_data);
+            });
+        });
+    </script>
+
+</body>
+</html>
