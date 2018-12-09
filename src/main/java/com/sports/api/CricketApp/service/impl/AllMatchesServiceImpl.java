@@ -3,17 +3,12 @@ package com.sports.api.CricketApp.service.impl;
 import com.sports.api.CricketApp.dto.AllMatchesDTO;
 import com.sports.api.CricketApp.dto.MatchScoreSummaryDTO;
 import com.sports.api.CricketApp.service.AllMatchesService;
-import freemarker.template.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 @Service
@@ -31,7 +26,6 @@ public class AllMatchesServiceImpl implements AllMatchesService {
     public String getAllCurrentMatches() {
         String response="";
         String finalResponse="";
-        String fileName = "response.js";
 
         try {
             String allMatchesURL = cricApiURL + MATCHES + "?apikey=" + apiKey;
@@ -53,7 +47,6 @@ public class AllMatchesServiceImpl implements AllMatchesService {
             response = processResponse (response, "MatchSummaryDTO");
 
             finalResponse = preLoad + " <table> " + headers + response + "</table>" + "</html>";
-            writeToFile(response, fileName);
         }
         catch (Exception ex) {
             log.error("Error in fetching list of all the matches", ex);
@@ -101,7 +94,7 @@ public class AllMatchesServiceImpl implements AllMatchesService {
 
         matchResp = matchResp + "</td></tr>";
 
-        System.out.println(matchResp);
+//        System.out.println(matchResp);
         return  matchResp;
     }
 
@@ -169,19 +162,4 @@ public class AllMatchesServiceImpl implements AllMatchesService {
 
         return newResp;
     }
-
-    private void writeToFile(String response, String fileName) {
-        try {
-            String dir = "src/main/webapp/v1/";
-            FileOutputStream outputStream = new FileOutputStream("./" + dir + fileName);
-            byte[] strToBytes = response.getBytes();
-            outputStream.write(strToBytes);
-            outputStream.close();
-        }catch (FileNotFoundException ex) {
-            log.error("File {} not found in the system.", fileName, ex);
-        } catch (IOException ex) {
-            log.error("Met with exception for the file ", fileName, ex);
-        }
-    }
-
 }
